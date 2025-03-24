@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import InputI from "./components/input";
 
 export default function FakeNewsChecker() {
   const [newsText, setNewsText] = useState("");
@@ -29,14 +30,15 @@ export default function FakeNewsChecker() {
         value={newsText}
         onChange={(e) => setNewsText(e.target.value)}
       />
-      <button
+     <button
         className="bg-blue-500 text-white px-4 py-2 mt-4 rounded"
         onClick={checkNews}
         disabled={loading}
       >
         {loading ? "Checking..." : "Check News"}
-      </button>
+      </button> 
       {result && <p className="mt-4 text-lg font-semibold">Result: {result}</p>}
     </div>
   );
 }
+ 
