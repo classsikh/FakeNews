@@ -16,11 +16,23 @@ app.post("/check-news", async (req, res) => {
   try {
     const response = await axios.post("https://ark.brighthustle.in/public-utils/devki/ask", {
       jwt: process.env.JWT,
-      question: `Is this news fake? Answer in yes or no only: ${text}`,
+      question: `Is the following news true or fake?: ${text}`,
     });
     res.json({ result: response.data });
   } catch (error) {
     res.status(500).json({ error: "Error checking news" });
+  }
+});
+
+// Add trending news endpoint
+app.get("/trending-news", async (req, res) => {
+  try {
+    const trendingNews = await News.find()
+      .sort({ timestamp: -1 })
+      .limit(10);
+    res.json(trendingNews);
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching trending news" });
   }
 });
 
