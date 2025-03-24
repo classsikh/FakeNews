@@ -59,7 +59,7 @@ export default function TrendingNews() {
                       href={item.link} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-3 py-1 rounded-md bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+                      className="inline-flex items-center px-3 py-1 rounded-md bg-yellow-600 hover:bg-yellow-700 text-black transition-colors"
                     >
                       Read More
                       <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -16,8 +16,17 @@ app.post("/check-news", async (req, res) => {
   try {
     const response = await axios.post("https://ark.brighthustle.in/public-utils/devki/ask", {
       jwt: process.env.JWT,
-      question: `Analyze the following news and determine if it is true or false. If true, provide supporting information; if false, simply state 'This news is false.' News: : ${text}`,
+      question: `{
+  "query": "Analyze the following news and determine if it is true or false. Provide the response in JSON format with two keys: 'confidence' (a percentage from 0 to 100) and 'message' (a statement declaring if the news is true or false, with supporting details if true). News: 
+${text}`,
     });
+    const data = await response.json();
+    console.log(data);
+    const confidence =data.result.reply.data.devkiResponse.confidence; // Confidence percentage
+    const message = data.result.reply.data.devkiResponse.message; // True/False statement with details if true
+
+    console.log("Confidence:", confidence + "%");
+    console.log("Message:", message);
     res.json({ result: response.data });
   } catch (error) {
     res.status(500).json({ error: "Error checking news" });

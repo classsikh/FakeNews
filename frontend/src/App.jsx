@@ -6,7 +6,7 @@ import TrendingNews from "./components/TrendingNews";
 import { useTheme } from './context/ThemeContext';
 
 export default function App() {
-  const { darkMode, setDarkMode } = useTheme();
+  const { darkMode } = useTheme();
   const [newsText, setNewsText] = useState("");
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ export default function App() {
     setLoading(true);
     try {
       const response = await axios.post("http://localhost:5000/check-news", { text: newsText });
-      console.log(response.data.result.reply.data.devkiResponse);
+      console.log(response.data);
       setResult(response.data.result.reply.data.devkiResponse);
     } catch (error) {
       setResult("Error checking news");
@@ -62,33 +62,18 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'dark bg-gray-900' : 'bg-gray-100'}`}>
-      <nav className={`${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-md`}>
+    <div className="min-h-screen bg-gray-900">
+      <nav className="bg-gray-800 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
+          <div className="flex h-16">
             <div className="flex space-x-8">
-              <Link to="/" className={`flex items-center px-3 py-2 ${darkMode ? 'text-gray-200 hover:text-white' : 'text-gray-700 hover:text-gray-900'}`}>
+              <Link to="/" className="flex items-center px-3 py-2 text-gray-200 hover:text-white">
                 Analyze News
               </Link>
-              <Link to="/trending" className={`flex items-center px-3 py-2 ${darkMode ? 'text-gray-200 hover:text-white' : 'text-gray-700 hover:text-gray-900'}`}>
+              <Link to="/trending" className="flex items-center px-3 py-2 text-gray-200 hover:text-white">
                 Trending News
               </Link>
             </div>
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-lg"
-              aria-label="Toggle dark mode"
-            >
-              {darkMode ? (
-                <svg className="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-              ) : (
-                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-              )}
-            </button>
           </div>
         </div>
       </nav>
@@ -114,9 +99,11 @@ export default function App() {
                       onChange={(e) => setNewsText(e.target.value)}
                       disabled={loading}
                     />
-                    <div className={`flex flex-col gap-2 p-2 border-l ${darkMode ? 'border-gray-700' : 'border-gray-300'}`}>
+                    <div className={`flex flex-col gap-2 p-2`}>
                       <button
-                        className={`p-2 ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'} rounded-lg transition-colors`}
+                        className={`p-2 rounded-lg hover:opacity-80 transition-opacity ${
+                          darkMode ? 'text-gray-400' : 'text-gray-600'
+                        }`}
                         onClick={() => fileInputRef.current.click()}
                         title="Upload Image"
                       >
@@ -125,7 +112,9 @@ export default function App() {
                         </svg>
                       </button>
                       <button
-                        className={`p-2 hover:bg-gray-100 rounded-lg transition-colors ${isListening ? 'bg-red-100' : ''}`}
+                        className={`p-2 rounded-lg hover:opacity-80 transition-opacity ${
+                          darkMode ? 'text-gray-400' : 'text-gray-600'
+                        } ${isListening ? 'text-red-500' : ''}`}
                         onClick={handleVoiceInput}
                         title="Voice Input"
                       >
@@ -146,10 +135,10 @@ export default function App() {
 
                 <div className="mt-6 text-center">
                   <button
-                    className={`px-8 py-3 rounded-lg font-semibold text-white transition-colors ${
+                    className={`px-8 py-3 rounded-lg font-semibold transition-colors ${
                       loading 
-                        ? 'bg-gray-400 cursor-not-allowed' 
-                        : 'bg-blue-500 hover:bg-blue-600'
+                        ? 'bg-gray-700 cursor-not-allowed' 
+                        : 'bg-yellow-600 hover:bg-yellow-700 text-black'
                     }`}
                     onClick={checkNews}
                     disabled={loading || !newsText.trim()}
