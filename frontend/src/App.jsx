@@ -128,7 +128,7 @@ export default function App() {
               </div>
 
               {/* Hero content */}
-              <div className="relative py-28 px-4 sm:py-32 md:py-36 z-10">
+              <div className="relative py-10 px-4 sm:py-32 md:py-36 z-10">
                 <div className="max-w-4xl mx-auto text-center space-y-8">
                   {/* Small badge */}
                   <div className="animate-fadeIn">
