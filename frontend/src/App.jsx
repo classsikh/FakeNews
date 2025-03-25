@@ -290,6 +290,12 @@ export default function App() {
                           )}
                         </div>
                       </div>
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        className="hidden"
+                        accept="image/*"
+                        onChange={handleImageUpload}/>
                     </div>
 
                     <div className="flex justify-center">
